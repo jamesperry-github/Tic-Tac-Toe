@@ -6,6 +6,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
     {
         // declare game parameters
         static int[] board = new int[9];
+        static int userTurn;
+        static int computerTurn;
         private static void printBoard()
         {
             for (int i = 0; i < 9; i++)
@@ -32,40 +34,40 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 }
             }
         }
+        static void determineWinner()
+        {
+
+        }
         static void Main(string[] args)
         {
-            board[0] = 0;
-            board[1] = 0;
-            board[2] = 0;
-            board[3] = 0;
-            board[4] = 0;
-            board[5] = 0;
-            board[6] = 0;
-            board[7] = 0;
-            board[8] = 0;
-            Console.WriteLine("HERE IS THE BOARD");
+            Console.WriteLine("NEW GAME!");
             printBoard();
-
-            int userTurn;
+            //int userTurn;
+            //int computerTurn;
+            Random rand = new Random();
+            Console.WriteLine("Please enter a number from 0 to 8");
+            userTurn = int.Parse(Console.ReadLine());
+            Console.WriteLine("You select " + userTurn);
+            computerTurn = rand.Next(8);
+            Console.WriteLine("Computer selects " + computerTurn);
             while (true)
             {
-
-                Console.WriteLine("Please enter a number from 0 to 8");
-                userTurn = int.Parse(Console.ReadLine());
-                if(userTurn > 9)
+                while (userTurn == -1 || board[userTurn] != 0)
                 {
-                    Console.WriteLine("Your move is out of bounds");
+                    Console.WriteLine("Please enter a number from 0 to 8");
+                    userTurn = int.Parse(Console.ReadLine());
+                    Console.WriteLine("You select " + userTurn);
                 }
-                else
+                board[userTurn] = 1;
+                // computer moveset
+                while (computerTurn == -1 || board[computerTurn] != 0)
                 {
-                    Console.WriteLine("You type " + userTurn);
-                    board[userTurn] = 1;
-                    printBoard();
+                    computerTurn = rand.Next(8);
+                    Console.WriteLine("Computer selects " + computerTurn);
                 }
+                board[computerTurn] = 2;
+                printBoard();
             }
         }
     }
 }
-
-// See https://aka.ms/new-console-template for more information
-//Console.WriteLine("Hello, World!");
